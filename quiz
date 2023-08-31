@@ -1,0 +1,42 @@
+
+/*
+ * Basically, this algorithm will first get the inOrder traversal in a vector then we will get the next element after
+ * the number we want to get the successor for. If there is no such element (either because we run out of size or
+ * it's not found, then we will return the same number.
+*/
+int getSuccessor (int num) {
+    vector<int> result;
+    inOrderTraversal (root, result);
+
+    for (int i = 0; i < result.size(); i++) {
+        if ((result[i] == num) && ((i+1) < result.size()-1)) {
+            return result[i+1];
+        }
+    }
+    return num;
+}
+
+private:
+
+void inOrderTraversal(TreeNode* t,vector<ItemType>& result) const
+{
+    /*
+     * we first print all the data in the left node then the data in the right
+     * node (recursively) as a way to put things in order (from smallest to largest size)
+     */
+    if (t != NULL) {
+        if (t -> left != NULL) {
+            inOrderTraversal(t -> left, result);
+        }
+        result.push_back(t -> data);
+        if (t -> right != NULL) {
+            inOrderTraversal(t -> right, result);
+        }
+    }
+    /*
+     * in case the node ends up being null
+     */
+    else {
+        return;
+    }
+}
